@@ -22,10 +22,10 @@ class QuickSort
 
   # In-place.
   def self.sort2!(array, start = 0, length = array.length, &prc)
-    return array if length <= 1
+    return array if length < 1
     part_idx = QuickSort.partition(array, start, length, &prc)
-    QuickSort.sort2!(array, start, part_idx - start - 1, &prc)
-    QuickSort.sort2!(array, part_idx + 1, length - part_idx - 2, &prc)
+    QuickSort.sort2!(array, start, part_idx - start, &prc)
+    QuickSort.sort2!(array, part_idx + 1, length - part_idx - 1, &prc)
   end
   
   def self.partition(array, start, length, &prc)
