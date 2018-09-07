@@ -8,9 +8,9 @@ class QuickSort
     left, right, mid = [], [], []
     pivot = array[rand(array.length)]
     array.each do |el|
-      case el <=> pivot
+      case el <=> pivot 
       when -1
-        left << el
+        left << el 
       when 0
         mid << el 
       else 
@@ -22,8 +22,17 @@ class QuickSort
 
   # In-place.
   def self.sort2!(array, start = 0, length = array.length, &prc)
+    return array if length = 0
+    pivot_idx = QuickSort.partition(array, start, length, &prc)
+    QuickSort.sort2!(array, start, length / 2, &prc)
+    QuickSort.sort2!(array, pivot_idx + 1, length / 2, &prc)
   end
-
+  
   def self.partition(array, start, length, &prc)
+    prc ||= Proc.new {|pivot, el| el <=> pivot}
+    pivot = array.first
+
+    array = QuickSort.sort1(array)
+    return start + length / 2 
   end
 end
